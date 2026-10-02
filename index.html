@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SIRKEL DIMAS ABU VULKANIK</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    background: linear-gradient(
+        to bottom,
+        #63c5ff,
+        #bcecff,
+        #f2f2f2
+    );
+}
+
+/* Judul */
+h1 {
+    margin-top: 25px;
+    font-size: 30px;
+    color: #222;
+    text-shadow: 2px 2px white;
+}
+
+.subjudul {
+    color: #222;
+    margin-bottom: 20px;
+}
+
+/* Kotak pertanyaan */
+.pilihan {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: rgba(0,0,0,0.7);
+    border: 3px solid #ff6500;
+    border-radius: 20px;
+}
+
+.pilihan h2 {
+    margin-top: 0;
+}
+
+input {
+    width: 85%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 12px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    background: #ff5a00;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Hasil identitas */
+#hasil {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto 220px;
+}
+
+.kartu {
+    background: rgba(0,0,0,0.75);
+    border: 3px solid #ff6500;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.kartu img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid white;
+}
+
+.kartu h2 {
+    color: #ff8a3d;
+}
+
+/* GUNUNG */
+.gunung {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: #333;
+    clip-path: polygon(
+        0 100%,
+        15% 65%,
+        30% 85%,
+        50% 15%,
+        70% 80%,
+        85% 55%,
+        100% 100%
+    );
+    z-index: 1;
+}
+
+/* Asap */
+.asap {
+    position: fixed;
+    bottom: 160px;
+    left: 45%;
+    width: 100px;
+    height: 100px;
+    background: rgba(90,90,90,0.6);
+    border-radius: 50%;
+    filter: blur(8px);
+    z-index: 2;
+    animation: asapNaik 4s infinite alternate;
+}
+
+.asap::before {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 60px;
+    top: -60px;
+    background: rgba(100,100,100,0.55);
+    border-radius: 50%;
+}
+
+.asap::after {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: -50px;
+    top: -30px;
+    background: rgba(80,80,80,0.5);
+    border-radius: 50%;
+}
+
+@keyframes asapNaik {
+    from {
+        transform: translateY(10px);
+    }
+
+    to {
+        transform: translateY(-45px) scale(1.2);
+    }
+}
+
+/* Abu vulkanik */
+.abu {
+    position: fixed;
+    bottom: 170px;
+    left: 50%;
+    width: 7px;
+    height: 7px;
+    background: #555;
+    border-radius: 50%;
+
+    box-shadow:
+        40px -70px #555,
+        -50px -100px #666,
+        80px -130px #777,
+        -80px -150px #555,
+        120px -190px #666,
+        -120px -210px #777;
+
+    animation: abuNaik 5s infinite;
+    z-index: 3;
+}
+
+@keyframes abuNaik {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100px);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h1>🌋 SIRKEL DIMAS ABU VULKANIK 🌋</h1>
+
+<div class="subjudul">
+    7 Anggota • Identitas Sirkel
+</div>
+
+<div class="pilihan">
+
+    <h2>🔎 Mau lihat identitas siapa?</h2>
+
+    <input
+        type="text"
+        id="nama"
+        placeholder="Ketik nama..."
+    >
+
+    <br>
+
+    <button onclick="lihatIdentitas()">
+        LIHAT IDENTITAS
+    </button>
+
+</div>
+
+<div id="hasil"></div>
+
+
+<!-- Hiasan gunung -->
+<div class="asap"></div>
+<div class="abu"></div>
+<div class="gunung"></div>
+
+
+<script>
+
+const anggota = {
+
+    alfa: {
+        nama: "Alfa",
+        foto: "alfa.jpg"
+    },
+
+    azzam: {
+        nama: "Azzam",
+        foto: "azzam.jpg"
+    },
+
+    dimas: {
+        nama: "Dimas",
+        foto: "dimas.jpg"
+    },
+
+    kayla: {
+        nama: "Kayla",
+        foto: "kayla.jpg"
+    },
+
+    kirana: {
+        nama: "Kirana",
+        foto: "kirana.jpg"
+    },
+
+    zaskya: {
+        nama: "Zaskya",
+        foto: "zaskya.jpg"
+    },
+
+    fifi: {
+        nama: "Fifi",
+        foto: "fifi.jpg"
+    }
+
+};
+
+
+function lihatIdentitas() {
+
+    let nama = document
+        .getElementById("nama")
+        .value
+        .toLowerCase()
+        .trim();
+
+    let hasil = document.getElementById("hasil");
+
+    if (anggota[nama]) {
+
+        let orang = anggota[nama];
+
+        hasil.innerHTML = `
+            <div class="kartu">
+
+                <img
+                    src="${orang.foto}"
+                    alt="Foto ${orang.nama}"
+                >
+
+                <h2>🌋 ${orang.nama}</h2>
+
+                <p>
+                    🔥 Anggota SIRKEL DIMAS ABU VULKANIK
+                </p>
+
+            </div>
+        `;
+
+    } else {
+
+        hasil.innerHTML = `
+            <div class="kartu">
+
+                <h2>❌ Nama tidak ditemukan</h2>
+
+                <p>
+                    Coba ketik salah satu nama:
+                </p>
+
+                <p>
+                    Alfa, Azzam, Dimas, Kayla,
+                    Kirana, Zaskya, atau Fifi.
+                </p>
+
+            </div>
+        `;
+    }
+}
+
+</script>
+
+</body>
+</html>
